@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "544091446025",
+    "firebase_url": "https://gstapplication-b1090.firebaseio.com",
+    "project_id": "gstapplication-b1090",
+    "storage_bucket": "gstapplication-b1090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544091446025:android:3bfecb2a013d44383291d8",
+        "android_client_info": {
+          "package_name": "com.AnK.gst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544091446025-hne8782k9a2sh833gp5oqpmoodsqbg9f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AnK.gst",
+            "certificate_hash": "6413aa677692acfa96eb9432a3c8fd0d8c5ffeb0"
+          }
+        },
+        {
+          "client_id": "544091446025-cdsggjppunuk79tcbak6schuuve6qa6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf6wDghzfNjnXV7_yQpQbh8h6KiXn9X8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544091446025-cdsggjppunuk79tcbak6schuuve6qa6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
