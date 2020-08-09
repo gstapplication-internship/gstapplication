@@ -434,15 +434,6 @@ class _GstState extends State<GstCal> {
                           ],
                         ),
                       ),
-<<<<<<< HEAD
-                      Container(
-                        color: Colors.white,
-                        margin: EdgeInsets.only(top: 10),
-                        width: MediaQuery.of(context).size.width,
-                        height: 40,
-                      ),
-=======
->>>>>>> 2d9a006cc4e645617d0f6335ed360c33bea02bcc
                     ],
                   ),
                 ),
