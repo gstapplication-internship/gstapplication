@@ -449,20 +449,6 @@ class _GstState extends State<GstCal> {
                           ],
                         ),
                       ),
-                      Container(
-                        color: Colors.white,
-                        margin: EdgeInsets.only(top: 10),
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        height: 40,
-                        child: FlatButton(
-                          onPressed: () async {
-
-                          },
-                        ),
-                      ),
                     ],
                   ),
                 ),

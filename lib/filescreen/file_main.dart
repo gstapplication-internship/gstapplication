@@ -34,6 +34,7 @@ class RootPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Center(child: Text("SALES REPORT")),
+          backgroundColor: Colors.indigo,
         ),
         body: SimpleTable(),
       ),

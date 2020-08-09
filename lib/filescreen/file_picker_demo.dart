@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:gst/filescreen/file_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,7 @@ import 'package:gst/filescreen/simple_table.dart' as simple;
 import 'package:gst/filescreen/custom_data_table.dart' as custom;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart'as path;
+import 'package:hexcolor/hexcolor.dart';
 
 class FilePickerDemo extends StatefulWidget {
   @override
@@ -37,7 +37,12 @@ class _FilePickerDemoState extends State<FilePickerDemo> {
   }
 }
 
-class MyHome extends StatelessWidget {
+class MyHome extends StatefulWidget {
+  @override
+  _MyHomeState createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   bool _isButtonDisable = true;
 
   @override
@@ -46,53 +51,72 @@ class MyHome extends StatelessWidget {
       child: Builder(
         builder: (context) => Scaffold(
           body: Center(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 320, 0, 0),
-                  child: RaisedButton(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Colors.black,
+                  Hexcolor("#305c91"),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+              ),
+              child: Column(
+                children: <Widget>[
+
+                  Container(
+                    color: Hexcolor("#305c91"),
+                    margin: EdgeInsets.only(top: 30),
+                    child:Image(
+                      image: AssetImage("assets/file.png"),
+
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+                    child: RaisedButton(
+                      child: Text(
+                        "SELECT FILE",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                      onPressed: () {
+                        openFileExplorer(context);
+                      },
+                      color: Hexcolor("#305c91"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
+                  RaisedButton(
                     child: Text(
-                      "SELECT FILE",
+                      "SHOW",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () {
-                      openFileExplorer(context);
+
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => MyApp()));
+
                     },
-                    color: Colors.teal,
+                    color: Hexcolor("#305c91"),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
-                ),
-                RaisedButton(
-                  child: Text(
-                    "SHOW",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  onPressed: () {
+                  RaisedButton(
+                    child: Text(
+                      "UPLOAD",
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                    onPressed: () async {
+                      name=path.basename(file.path);
+                      _upload = _storage.ref().child(name).putFile(file);
+                      await _upload.onComplete;
+                      print("success");
+                      _uploaded();
 
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => MyApp()));
-
-                  },
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                RaisedButton(
-                  child: Text(
-                    "UPLOAD",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    },
+                    color: Hexcolor("#305c91"),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                   ),
-                  onPressed: () async {
-                    name=path.basename(file.path);
-                    _upload = _storage.ref().child(name).putFile(file);
-                    await _upload.onComplete;
-                    print("success");
-                  },
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
 //              RaisedButton(
 //                child: Text("EDIT "),
 //                onPressed: () {
@@ -100,7 +124,8 @@ class MyHome extends StatelessWidget {
 //                      builder: (context) => custom.CustomDataTable()));
 //                },
 //              ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -126,5 +151,38 @@ class MyHome extends StatelessWidget {
       print("Unsupported operation" + e.toString());
     }
   }
-
+  _uploaded() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          content: Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Positioned(
+                right: -40.0,
+                top: -40.0,
+                child: InkResponse(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: CircleAvatar(
+                    child: Icon(Icons.close),
+                    backgroundColor: Hexcolor("#305c91"),
+                  ),
+                ),
+              ),
+              Text(
+                "file uploaded successfully",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
