@@ -4,6 +4,7 @@ import 'package:gst/screens/recaptcha_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:gst/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gst/screens/recaptcha_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static bool enable = false;
@@ -148,10 +149,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       MaterialButton(
                         onPressed: () {
+<<<<<<< HEAD
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ReCaptchaScreen()));
+=======
+                          String email = _emailController.text.trim();
+                          String password = _passwordController.text;
+                          String gst = _gst.text;
+                          if (email.isEmpty || password.isEmpty || gst.isEmpty){
+                            _error();
+                          }
+                          else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ReCaptchaScreen()));
+                          }
+>>>>>>> 2d9a006cc4e645617d0f6335ed360c33bea02bcc
                         },
                         child: Text("VERIFY RECAPTHA"),
                       ),
