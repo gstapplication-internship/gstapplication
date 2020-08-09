@@ -27,9 +27,9 @@ class _GstState extends State<GstCal> {
   var tsgst;
   var tigst;
   var gst;
-  var tgst=0.0;
+  var tgst = 0.0;
   var tcgst;
-  static int check=0;
+  static int check = 0;
   String ss;
 
   TextEditingController _controller = TextEditingController();
@@ -59,7 +59,8 @@ class _GstState extends State<GstCal> {
           .document(user.uid)
           .collection("userinfo")
           .document("gstinfo")
-          .get().then((value) {
+          .get()
+          .then((value) {
         tcgst = value.data["tcgst"];
         tigst = value.data["tigst"];
         tsgst = value.data["tsgst"];
@@ -68,49 +69,42 @@ class _GstState extends State<GstCal> {
         print(tigst);
       });
 
-        if (check == 0) {
-          _db.collection("users")
-              .document(user.uid)
-              .collection("userinfo")
-              .document("gstinfo")
-              .collection("paymentinfo")
-              .document(ss)
-              .setData({
-            "tgst":0,
-          });
-        }
-        else {
-          _db.collection("users")
-              .document(user.uid)
-              .collection("userinfo")
-              .document("gstinfo")
-              .collection("paymentinfo")
-              .document(ss)
-              .get()
-              .then((value) {
-                tgst=value.data["tgst"];
-                print(tgst);
-          });
-        }
-
+      if (check == 0) {
+        _db
+            .collection("users")
+            .document(user.uid)
+            .collection("userinfo")
+            .document("gstinfo")
+            .collection("paymentinfo")
+            .document(ss)
+            .setData({
+          "tgst": 0,
+        });
+      } else {
+        _db
+            .collection("users")
+            .document(user.uid)
+            .collection("userinfo")
+            .document("gstinfo")
+            .collection("paymentinfo")
+            .document(ss)
+            .get()
+            .then((value) {
+          tgst = value.data["tgst"];
+          print(tgst);
+        });
+      }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme
-        .of(context)
-        .textTheme
-        .title;
+    TextStyle textStyle = Theme.of(context).textTheme.title;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Container(
         width: double.infinity,
-        height: MediaQuery
-            .of(context)
-            .size
-            .width,
+        height: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: <Color>[Hexcolor("#305c91"), Colors.black],
@@ -128,17 +122,16 @@ class _GstState extends State<GstCal> {
                 padding: EdgeInsets.only(top: 20),
                 child: Center(
                     child: Text(
-                      'ENTER TAX',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 30),
-                    )),
+                  'ENTER TAX',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+                )),
               ),
             ),
             body: SingleChildScrollView(
               child: Center(
                 child: Padding(
                   padding:
-                  const EdgeInsets.only(top: 20, left: 15.0, right: 15.0),
+                      const EdgeInsets.only(top: 20, left: 15.0, right: 15.0),
                   child: Column(
                     children: <Widget>[
                       Card(
@@ -171,18 +164,17 @@ class _GstState extends State<GstCal> {
                                     value: "IGST",
                                   ),
                                 ],
-                                onChanged: (value) =>
-                                    setState(() {
-                                      if (value == "CGST") {
-                                        _extension = value;
-                                      }
-                                      if (value == "SGST") {
-                                        _extension = value;
-                                      }
-                                      if (value == "IGST") {
-                                        _extension = value;
-                                      }
-                                    }),
+                                onChanged: (value) => setState(() {
+                                  if (value == "CGST") {
+                                    _extension = value;
+                                  }
+                                  if (value == "SGST") {
+                                    _extension = value;
+                                  }
+                                  if (value == "IGST") {
+                                    _extension = value;
+                                  }
+                                }),
                                 isDense: true,
                                 style: TextStyle(
                                   fontFamily: 'Ubuntu',
@@ -195,175 +187,175 @@ class _GstState extends State<GstCal> {
                             Padding(
                               child: _extension == "CGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    pcgst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(pcgst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller,
-                                decoration: InputDecoration(
-                                  hintText: 'CGST',
-                                  labelText: 'ENTER PURCHASE CGST',
-                                  labelStyle: textStyle,
-                                  border: tBorder(),
-                                ),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          pcgst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(pcgst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller,
+                                      decoration: InputDecoration(
+                                        hintText: 'CGST',
+                                        labelText: 'ENTER PURCHASE CGST',
+                                        labelStyle: textStyle,
+                                        border: tBorder(),
+                                      ),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
                             Padding(
                               child: _extension == "CGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    scgst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(scgst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller1,
-                                decoration: InputDecoration(
-                                    hintText: 'CGST',
-                                    labelText: 'ENTER SELLING CGST',
-                                    labelStyle: textStyle,
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(5.0))),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          scgst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(scgst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller1,
+                                      decoration: InputDecoration(
+                                          hintText: 'CGST',
+                                          labelText: 'ENTER SELLING CGST',
+                                          labelStyle: textStyle,
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0))),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
                             Padding(
                               child: _extension == "SGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    psgst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(psgst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller2,
-                                decoration: InputDecoration(
-                                  hintText: 'SGST',
-                                  labelText: 'ENTER PURCHASE SGST',
-                                  labelStyle: textStyle,
-                                  border: tBorder(),
-                                ),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          psgst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(psgst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller2,
+                                      decoration: InputDecoration(
+                                        hintText: 'SGST',
+                                        labelText: 'ENTER PURCHASE SGST',
+                                        labelStyle: textStyle,
+                                        border: tBorder(),
+                                      ),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
                             Padding(
                               child: _extension == "SGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    ssgst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(ssgst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller3,
-                                decoration: InputDecoration(
-                                  hintText: 'SGST',
-                                  labelText: 'ENTER SELLING SGST',
-                                  labelStyle: textStyle,
-                                  border: tBorder(),
-                                ),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          ssgst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(ssgst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller3,
+                                      decoration: InputDecoration(
+                                        hintText: 'SGST',
+                                        labelText: 'ENTER SELLING SGST',
+                                        labelStyle: textStyle,
+                                        border: tBorder(),
+                                      ),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
                             Padding(
                               child: _extension == "IGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    pigst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(pigst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller4,
-                                decoration: InputDecoration(
-                                  hintText: 'IGST',
-                                  labelText: 'ENTER PURCHASE IGST',
-                                  labelStyle: textStyle,
-                                  border: tBorder(),
-                                ),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          pigst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(pigst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller4,
+                                      decoration: InputDecoration(
+                                        hintText: 'IGST',
+                                        labelText: 'ENTER PURCHASE IGST',
+                                        labelStyle: textStyle,
+                                        border: tBorder(),
+                                      ),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
                             Padding(
                               child: _extension == "IGST"
                                   ? TextField(
-                                keyboardType: TextInputType.number,
-                                style: textStyle,
-                                onChanged: (value) {
-                                  setState(() {
-                                    sigst = value.length > 0
-                                        ? double.parse(value)
-                                        : 0;
-                                    //print(sigst);
-                                    gst = (scgst - pcgst + tcgst) +
-                                        (ssgst - psgst + tsgst) +
-                                        (sigst - pigst + tigst);
-                                    _controller6.text =
-                                        gst.toStringAsFixed(2);
-                                  });
-                                },
-                                controller: _controller5,
-                                decoration: InputDecoration(
-                                  hintText: 'IGST',
-                                  labelText: 'ENTER SELLING IGST',
-                                  labelStyle: textStyle,
-                                  border: tBorder(),
-                                ),
-                              )
+                                      keyboardType: TextInputType.number,
+                                      style: textStyle,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          sigst = value.length > 0
+                                              ? double.parse(value)
+                                              : 0;
+                                          //print(sigst);
+                                          gst = (scgst - pcgst + tcgst) +
+                                              (ssgst - psgst + tsgst) +
+                                              (sigst - pigst + tigst);
+                                          _controller6.text =
+                                              gst.toStringAsFixed(2);
+                                        });
+                                      },
+                                      controller: _controller5,
+                                      decoration: InputDecoration(
+                                        hintText: 'IGST',
+                                        labelText: 'ENTER SELLING IGST',
+                                        labelStyle: textStyle,
+                                        border: tBorder(),
+                                      ),
+                                    )
                                   : Container(),
                               padding: EdgeInsets.all(10.0),
                             ),
@@ -385,23 +377,16 @@ class _GstState extends State<GstCal> {
                           ],
                         ),
                       ),
-
                       Container(
                         margin: EdgeInsets.only(top: 20),
                         //color: Colors.white,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         height: 100,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 3,
+                              width: MediaQuery.of(context).size.width / 3,
                               height: 60,
                               margin: EdgeInsets.all(10),
                               //color: Colors.black,
@@ -413,20 +398,18 @@ class _GstState extends State<GstCal> {
                                 onPressed: () {
                                   clear();
                                 },
-                                child: Text("CLEAR",
+                                child: Text(
+                                  "CLEAR",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 20,
                                     color: Colors.white,
-                                  ),),
+                                  ),
+                                ),
                               ),
                             ),
-
                             Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 2,
+                              width: MediaQuery.of(context).size.width / 2,
                               margin: EdgeInsets.all(7),
                               // color: Colors.black,
                               height: 60,
@@ -438,12 +421,14 @@ class _GstState extends State<GstCal> {
                                 onPressed: () {
                                   pay();
                                 },
-                                child: Text("PAY",
+                                child: Text(
+                                  "PAY",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 20,
                                     color: Colors.white,
-                                  ),),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -452,16 +437,8 @@ class _GstState extends State<GstCal> {
                       Container(
                         color: Colors.white,
                         margin: EdgeInsets.only(top: 10),
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         height: 40,
-                        child: FlatButton(
-                          onPressed: () async {
-
-                          },
-                        ),
                       ),
                     ],
                   ),
@@ -495,8 +472,7 @@ class _GstState extends State<GstCal> {
 
   void pay() async {
     if (gst > 0) {
-      print(
-          "you have pay $gst Tax to Government.\nTHANKYOU");
+      print("you have pay $gst Tax to Government.\nTHANKYOU");
     } else {
       print(" $gst Tax is Credited.\nTHANKYOU");
     }
@@ -515,7 +491,6 @@ class _GstState extends State<GstCal> {
       print("error");
     }
 
-
     tsgst = ssgst - psgst + tsgst;
     if (tsgst < 0) {
       _db
@@ -529,7 +504,6 @@ class _GstState extends State<GstCal> {
     } else {
       print("error");
     }
-
 
     tigst = sigst - pigst + tigst;
     if (tigst < 0) {
@@ -545,25 +519,21 @@ class _GstState extends State<GstCal> {
       print("error");
     }
 
-
-
-
     tgst += gst;
     if (tgst > 0) {
       check++;
       print(tgst);
       setState(() {
-
-        _db.collection("users")
+        _db
+            .collection("users")
             .document(user.uid)
             .collection("userinfo")
             .document("gstinfo")
             .collection("paymentinfo")
             .document(ss)
             .updateData({
-          "tgst":tgst,
-        }).then((value){
-
+          "tgst": tgst,
+        }).then((value) {
           return showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -596,11 +566,8 @@ class _GstState extends State<GstCal> {
               );
             },
           );
-
         });
       });
     }
-
   }
-
 }

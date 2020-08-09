@@ -5,8 +5,9 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gst/screens/gst_screen.dart';
-import 'package:gst/filescreen/file_main.dart';
+//import 'package:gst/filescreen/file_main.dart';
 import 'package:gst/filescreen/file_picker_demo.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -14,7 +15,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     var pages = [
       PageViewModel(
         title: "GSTR1",
@@ -42,7 +43,8 @@ class _MainScreenState extends State<MainScreen> {
           child: Center(
             child: FlatButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>FilePickerDemo()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FilePickerDemo()));
               },
               child: Text(
                 "PROCEED",
@@ -189,18 +191,16 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget reDirect(BuildContext context)
-  {
-    return  FlatButton(
-      onPressed: (){
-        Navigator.push(context,MaterialPageRoute(builder: (BuildContext context)=>GstCal()));
+  Widget reDirect(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => GstCal()));
       },
       child: Text(
         "PROCEED",
         style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w900),
+            color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900),
       ),
     );
   }
