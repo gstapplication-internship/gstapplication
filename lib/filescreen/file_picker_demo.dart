@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:gst/filescreen/simple_table.dart' as simple;
-import 'package:gst/filescreen/custom_data_table.dart' as custom;
+import 'package:gst/filescreen/custom.dart' as custom;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart'as path;
 import 'package:hexcolor/hexcolor.dart';
