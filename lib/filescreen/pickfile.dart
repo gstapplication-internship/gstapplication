@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:gst/filescreen/simple_table.dart' as simple;
 import 'package:gst/filescreen/custom.dart' as custom;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart'as path;
 import 'package:hexcolor/hexcolor.dart';
 
 class FilePickerDemo extends StatefulWidget {
@@ -17,10 +17,12 @@ class FilePickerDemo extends StatefulWidget {
 File file;
 String contents;
 String name;
-FirebaseStorage _storage = FirebaseStorage.instance;
+FirebaseStorage _storage= FirebaseStorage.instance;
 StorageUploadTask _upload;
 
 class _FilePickerDemoState extends State<FilePickerDemo> {
+
+
   @override
   void initState() {
     super.initState();
@@ -59,11 +61,13 @@ class _MyHomeState extends State<MyHome> {
               ),
               child: Column(
                 children: <Widget>[
+
                   Container(
                     color: Hexcolor("#305c91"),
                     margin: EdgeInsets.only(top: 30),
-                    child: Image(
+                    child:Image(
                       image: AssetImage("assets/file.png"),
+
                     ),
                   ),
                   Padding(
@@ -87,8 +91,10 @@ class _MyHomeState extends State<MyHome> {
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => MyApp()));
+
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => MyApp()));
+
                     },
                     color: Hexcolor("#305c91"),
                     shape: RoundedRectangleBorder(
@@ -100,11 +106,12 @@ class _MyHomeState extends State<MyHome> {
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () async {
-                      name = path.basename(file.path);
+                      name=path.basename(file.path);
                       _upload = _storage.ref().child(name).putFile(file);
                       await _upload.onComplete;
                       print("success");
                       _uploaded();
+
                     },
                     color: Hexcolor("#305c91"),
                     shape: RoundedRectangleBorder(
@@ -144,7 +151,6 @@ class _MyHomeState extends State<MyHome> {
       print("Unsupported operation" + e.toString());
     }
   }
-
   _uploaded() {
     return showDialog(
       context: context,
