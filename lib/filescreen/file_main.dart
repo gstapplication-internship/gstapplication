@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gst/filescreen/custom_data_table.dart';
 //import 'file_picker_demo.dart';
 import 'package:gst/filescreen/simple_table.dart';
 
+import 'custom.dart';
 
 String contents;
 

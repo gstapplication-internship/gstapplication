@@ -4,7 +4,7 @@ import 'package:gst/screens/recaptcha_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:gst/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gst/screens/recaptcha_screen.dart';
+//import 'package:gst/screens/recaptcha_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static bool enable = false;

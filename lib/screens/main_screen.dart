@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gst/filescreen/pickfile.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gst/screens/gst_screen.dart';
 //import 'package:gst/filescreen/file_main.dart';
-import 'package:gst/filescreen/file_picker_demo.dart';
 
 class MainScreen extends StatefulWidget {
   @override
